@@ -25,3 +25,7 @@ On his journey, he'll defeat monster, trading in other worlds and get ingredient
 ## Version and Changes Log
 ### Version: 0.0.1
 From `16/01/2024` - `...`
+
+Actions:
+- Add initial packages
+- Add game assets (Earth)
