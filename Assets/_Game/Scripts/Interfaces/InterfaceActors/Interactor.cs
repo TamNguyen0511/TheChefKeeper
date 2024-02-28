@@ -61,7 +61,7 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
             }
             else
             {
-                if (_interactable == null)
+                if (_interactable != null)
                     _interactable = null;
             }
         }
