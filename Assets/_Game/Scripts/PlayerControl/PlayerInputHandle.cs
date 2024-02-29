@@ -1,6 +1,7 @@
 ﻿using System;
 using _Game.Scripts.Interfaces.InterfaceActors;
 using Sirenix.OdinInspector;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,8 @@ namespace _Game.Scripts.PlayerControl
         public CharacterMovement CharacterMovement;
 
         private Vector2 _moveInput;
+        [ReadOnly, SerializeField]
+        private Vector2 _mousePosition;
 
         #endregion
 
@@ -67,6 +70,21 @@ namespace _Game.Scripts.PlayerControl
                     ActionCancel();
                     break;
             }
+        }
+        public void OnMouseMoving(InputAction.CallbackContext context)
+        {
+            _mousePosition = context.ReadValue<Vector2>();
+        }
+
+        #endregion
+
+        #region Local functions
+
+        private void UpdateInteractionPoint(Vector3 target)
+        {
+            Vector2 lookDirection = target - transform.position;
+            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+            _interactionPoint.transform.rotation = Quaternion.Euler(Vector2.up * angle);
         }
 
         #endregion

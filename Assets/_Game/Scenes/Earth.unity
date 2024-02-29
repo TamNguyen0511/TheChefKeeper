@@ -363,6 +363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
+  _characterAnimator: {fileID: 1813496227}
+  _visualBody: {fileID: 1813496225}
 --- !u!114 &1290238340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +384,7 @@ MonoBehaviour:
     m_Bits: 0
   _interactionPromtUI: {fileID: 0}
   CharacterMovement: {fileID: 0}
+  _mousePosition: {x: 0, y: 0}
 --- !u!114 &1290238341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +461,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9b521014-a90e-44f2-aaf4-fc7dbb48b887
     m_ActionName: Player/Action[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1290238340}
+        m_TargetAssemblyTypeName: _Game.Scripts.PlayerControl.PlayerInputHandle,
+          Assembly-CSharp
+        m_MethodName: OnMouseMoving
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 80ac6b3a-62a7-4170-9cf4-d1039cec9dbf
+    m_ActionName: Player/Mouse Position[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -531,6 +551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1813496225}
   - component: {fileID: 1813496226}
+  - component: {fileID: 1813496227}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -594,7 +615,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -841331879, guid: acf82d9d308557d419fd62a5b4abe2aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -605,6 +626,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1813496227
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813496224}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2ebaf6e772250f64d8b8feef236800c0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

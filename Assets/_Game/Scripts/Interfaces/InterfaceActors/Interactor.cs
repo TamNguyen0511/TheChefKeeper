@@ -9,7 +9,7 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
                 #region Serialize variables
 
         [SerializeField]
-        private Transform _interactionPoint;
+        protected Transform _interactionPoint;
         [SerializeField]
         private float _interactionPointRadius = 0.5f;
         [SerializeField]
