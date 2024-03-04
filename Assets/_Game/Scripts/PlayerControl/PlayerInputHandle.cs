@@ -101,6 +101,11 @@ namespace _Game.Scripts.PlayerControl
             }
         }
 
+        public void OnInventoryBtnClick(InputAction.CallbackContext context)
+        {
+            GameManager.Instance.ToggleInventoryUI();
+        }
+
         #endregion
 
         #region Local functions

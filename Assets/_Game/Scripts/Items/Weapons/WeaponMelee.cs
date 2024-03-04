@@ -33,12 +33,8 @@ namespace _Game.Scripts.Items.Weapons
                     Physics2D.OverlapCircleAll(_attackTriggerPoint.position, _attackRange, WeaponInfo.DamagableLayer);
                 if (hitteds.Length > 0)
                     foreach (Collider2D hit in hitteds)
-                    {
                         if (hit.GetComponent<Enemy>() != null)
-                        {
                             hit.GetComponent<Enemy>().TakeDamage(WeaponInfo.Damage);
-                        }
-                    }
 
                 _timeBetweenAttack = _startTimeBetweenAttack;
             }
