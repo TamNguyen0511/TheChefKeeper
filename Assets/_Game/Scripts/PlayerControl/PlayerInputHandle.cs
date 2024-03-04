@@ -13,11 +13,15 @@ namespace _Game.Scripts.PlayerControl
 
         public CharacterMovement CharacterMovement;
 
+        [SerializeField]
+        private Transform _orbitHolder;
+
         private Vector2 _moveInput;
-        [ReadOnly, SerializeField]
         private Vector2 _mousePosition;
 
         #endregion
+
+        public Action OnAttackPress;
 
         #region Unity functions
 
@@ -30,6 +34,7 @@ namespace _Game.Scripts.PlayerControl
         private void Update()
         {
             CharacterMovement.SetInputVector(_moveInput);
+            UpdateOrbitRotatePoint(Camera.main.ScreenToWorldPoint(_mousePosition));
         }
 
         #endregion
@@ -76,15 +81,40 @@ namespace _Game.Scripts.PlayerControl
             _mousePosition = context.ReadValue<Vector2>();
         }
 
+        public void OnMouseClick(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Disabled:
+                    break;
+                case InputActionPhase.Waiting:
+                    break;
+                case InputActionPhase.Started:
+                    AttackPressed();
+                    break;
+                case InputActionPhase.Performed:
+                    break;
+                case InputActionPhase.Canceled:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         #endregion
 
         #region Local functions
 
-        private void UpdateInteractionPoint(Vector3 target)
+        private void UpdateOrbitRotatePoint(Vector3 target)
         {
             Vector2 lookDirection = target - transform.position;
             float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
-            _interactionPoint.transform.rotation = Quaternion.Euler(Vector2.up * angle);
+            _orbitHolder.rotation = Quaternion.Euler(Vector3.forward * angle);
+        }
+
+        private void AttackPressed()
+        {
+            OnAttackPress?.Invoke();
         }
 
         #endregion

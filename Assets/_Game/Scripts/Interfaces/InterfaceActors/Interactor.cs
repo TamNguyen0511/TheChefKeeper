@@ -6,7 +6,7 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
 {
     public class Interactor : MonoBehaviour
     {
-                #region Serialize variables
+        #region Serialize variables
 
         [SerializeField]
         protected Transform _interactionPoint;
@@ -39,7 +39,7 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
 
         #endregion
 
-        protected void InteractAction()
+        public void InteractAction()
         {
             _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
                 _interactableMask);
