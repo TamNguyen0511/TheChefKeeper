@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game.Scripts.Inventory;
+using _Game.Scripts.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace _Game.Scripts
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
+
+        public UIController UIController;
 
         public InventorySystem Inventory = new InventorySystem();
 
@@ -25,15 +28,7 @@ namespace _Game.Scripts
 
         public void ToggleInventoryUI()
         {
-            if (InventoryUI.activeSelf)
-                InventoryUI.SetActive(false);
-            else InventoryUI.SetActive(true);
-        }
-
-        [Button("Remove")]
-        public void TestRemove(ItemDataSO item)
-        {
-            Inventory.Remove(item);
+            InventoryUI.SetActive(!InventoryUI.activeSelf);
         }
     }
 }

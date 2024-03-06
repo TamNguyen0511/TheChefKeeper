@@ -17,6 +17,7 @@ namespace _Game.Scripts.PlayerControl
         private Transform _orbitHolder;
 
         private Vector2 _moveInput;
+        [ShowInInspector, ReadOnly]
         private Vector2 _mousePosition;
 
         #endregion
@@ -76,6 +77,7 @@ namespace _Game.Scripts.PlayerControl
                     break;
             }
         }
+
         public void OnMouseMoving(InputAction.CallbackContext context)
         {
             _mousePosition = context.ReadValue<Vector2>();
