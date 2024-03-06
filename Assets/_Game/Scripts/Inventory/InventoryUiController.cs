@@ -22,6 +22,8 @@ namespace _Game.Scripts.Inventory
                 _inventorySlot.Add(child.GetComponent<InventorySlotUI>());
             }
 
+            ClearSlot();
+
             GameManager.Instance.OnUpdateItem += UpdateInventory;
         }
 

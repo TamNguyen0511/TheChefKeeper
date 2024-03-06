@@ -26,6 +26,11 @@ namespace _Game.Scripts
             }
         }
 
+        private void Start()
+        {
+            InventoryUI.SetActive(false);
+        }
+
         public void ToggleInventoryUI()
         {
             InventoryUI.SetActive(!InventoryUI.activeSelf);
