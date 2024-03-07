@@ -1,7 +1,6 @@
 ﻿using System;
 using _Game.Scripts.Inventory;
 using _Game.Scripts.UI;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Game.Scripts

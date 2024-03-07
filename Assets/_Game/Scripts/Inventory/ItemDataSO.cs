@@ -9,6 +9,7 @@ namespace _Game.Scripts.Inventory
         public string Name;
         public float Weight;
         public Sprite Icon;
+        public string Description;
         public GameObject ItemPrefab;
     }
 }
