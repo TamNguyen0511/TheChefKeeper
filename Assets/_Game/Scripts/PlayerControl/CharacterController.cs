@@ -1,34 +1,42 @@
-﻿using _Game.Scripts.Items.Weapons;
+﻿using _Game.Scripts.Interfaces.InterfaceActors;
+using _Game.Scripts.Items;
+using _Game.Scripts.Items.Weapons;
 using _Game.Scripts.ScriptableObjects.World_Area;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game.Scripts.PlayerControl
 {
-    public class CharacterController : MonoBehaviour
+    [RequireComponent(typeof(PlayerInputHandle))]
+    public class CharacterController : Interactor
     {
-        [SerializeField]
-        private PlayerInputHandle _playerInputHandle;
-        [SerializeField]
-        private Weapon _equipingWeapon;
+        
+        [ShowInInspector, ReadOnly]
+        private PlayerInputHandle _playerInput;
 
         private void OnEnable()
         {
-            if (_playerInputHandle == null && GetComponent<PlayerInputHandle>() != null)
-                _playerInputHandle = GetComponent<PlayerInputHandle>();
-
-            _playerInputHandle.OnAttackPress += Attack;
+            _playerInput = GetComponent<PlayerInputHandle>();
+            _playerInput.OnAttackPress += Attack;
         }
 
         private void OnDisable()
         {
-            _playerInputHandle.OnAttackPress -= Attack;
+            _playerInput.OnAttackPress -= Attack;
         }
 
         private void Attack()
         {
-            if (_equipingWeapon != null)
-                _equipingWeapon.Attack();
-            else _playerInputHandle.InteractAction();
+            if (SelectingItem != null)
+            {
+                Weapon weapon = SelectingItem as Weapon;
+                if (weapon != null)
+                {
+                    weapon.Attack();
+                }
+            }
+            else InteractAction();
         }
     }
 }

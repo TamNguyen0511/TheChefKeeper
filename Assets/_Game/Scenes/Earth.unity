@@ -2520,17 +2520,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cba1a548b38385549b68bea3d183d12f, type: 3}
---- !u!114 &830009138 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8636771616801260636, guid: cba1a548b38385549b68bea3d183d12f, type: 3}
-  m_PrefabInstance: {fileID: 830009137}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed57e9cfb9bc453cbd22147ca9003c69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &830009139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3362619646737490762, guid: cba1a548b38385549b68bea3d183d12f, type: 3}
@@ -3200,13 +3189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45060477eda8451abe99ba47eb5f28f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionPoint: {fileID: 1589336042}
-  _interactionPointRadius: 0.5
-  _interactableMask:
-    serializedVersion: 2
-    m_Bits: 0
-  _interactionPromtUI: {fileID: 0}
   CharacterMovement: {fileID: 0}
+  CharacterController: {fileID: 0}
   _orbitHolder: {fileID: 1765560633}
 --- !u!114 &1290238341
 MonoBehaviour:
@@ -3396,8 +3380,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e785a549aa34e61bf703f33f121face, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInputHandle: {fileID: 0}
-  _equipingWeapon: {fileID: 830009138}
+  _interactionPoint: {fileID: 1589336042}
+  _interactionPointRadius: 0.5
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _interactionPromtUI: {fileID: 0}
+  SelectingItem: {fileID: 0}
 --- !u!1001 &1324208239
 PrefabInstance:
   m_ObjectHideFlags: 0

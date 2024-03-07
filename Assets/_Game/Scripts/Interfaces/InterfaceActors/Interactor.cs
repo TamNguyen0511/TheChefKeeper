@@ -1,6 +1,8 @@
 ﻿using _Game.Scripts.Interfaces.InterfaceHelper;
+using _Game.Scripts.Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game.Scripts.Interfaces.InterfaceActors
 {
@@ -16,6 +18,8 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
         private LayerMask _interactableMask;
         [SerializeField]
         private InteractionPromtUI _interactionPromtUI;
+        
+        public Item SelectingItem;
 
         // public PickableItemContainer ItemContainer;
 
@@ -66,7 +70,7 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
             }
         }
 
-        protected void ActionPerform()
+        public void ActionPerform()
         {
             _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
                 _interactableMask);
@@ -93,7 +97,7 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
             }
         }
 
-        protected void ActionCancel()
+        public void ActionCancel()
         {
             _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
                 _interactableMask);

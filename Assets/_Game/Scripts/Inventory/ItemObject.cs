@@ -1,11 +1,12 @@
 ﻿using _Game.Scripts.Interfaces;
 using _Game.Scripts.Interfaces.InterfaceActors;
+using _Game.Scripts.Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Game.Scripts.Inventory
 {
-    public class ItemObject : MonoBehaviour, IInteractable
+    public class ItemObject : Item, IInteractable
     {
         [SerializeField]
         private ItemDataSO _itemData;

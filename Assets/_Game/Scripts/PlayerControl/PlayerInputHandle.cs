@@ -7,11 +7,12 @@ using UnityEngine.InputSystem;
 
 namespace _Game.Scripts.PlayerControl
 {
-    public class PlayerInputHandle : Interactor
+    public class PlayerInputHandle : MonoBehaviour
     {
         #region Serializable variable
 
         public CharacterMovement CharacterMovement;
+        public CharacterController CharacterController;
 
         [SerializeField]
         private Transform _orbitHolder;
@@ -30,6 +31,8 @@ namespace _Game.Scripts.PlayerControl
         {
             if (CharacterMovement == null && GetComponent<CharacterMovement>() != null)
                 CharacterMovement = GetComponent<CharacterMovement>();
+            if (CharacterController == null && GetComponent<CharacterController>() != null)
+                CharacterController = GetComponent<CharacterController>();
         }
 
         private void Update()
@@ -54,7 +57,7 @@ namespace _Game.Scripts.PlayerControl
                 case InputActionPhase.Started:
                     break;
                 case InputActionPhase.Performed:
-                    InteractAction();
+                    CharacterController.InteractAction();
                     break;
                 case InputActionPhase.Canceled:
                     break;
@@ -69,11 +72,11 @@ namespace _Game.Scripts.PlayerControl
                     break;
                 case InputActionPhase.Performed:
                     Debug.Log("Action perform");
-                    ActionPerform();
+                    CharacterController.ActionPerform();
                     break;
                 case InputActionPhase.Canceled:
                     Debug.Log("Action cancel");
-                    ActionCancel();
+                    CharacterController.ActionCancel();
                     break;
             }
         }

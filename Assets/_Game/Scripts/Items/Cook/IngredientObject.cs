@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Game.Scripts.Items.Cook
 {
-    public class IngredientObject : MonoBehaviour
+    public class IngredientObject : Item
     {
         public IngredientSO IngredientData;
         public GameObject IngredientPrefab;

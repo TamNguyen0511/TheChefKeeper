@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Game.Scripts.Items.Weapons
 {
-    public abstract class Weapon : MonoBehaviour, IWeapon
+    public abstract class Weapon : Item, IWeapon
     {
         public WeaponSO WeaponInfo;
         public Animator WeaponAnim;
