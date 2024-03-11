@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace _Game.Scripts.ScriptableObjects.World_Area
@@ -12,7 +13,7 @@ namespace _Game.Scripts.ScriptableObjects.World_Area
         public string Name;
         public Image Icon;
 
-        public DiskContainer RequirementContainer;
+        public DiskContainerType RequirementContainerType;
         public List<RequirementIngredientAndState> RequirementIngredients = new();
     }
 

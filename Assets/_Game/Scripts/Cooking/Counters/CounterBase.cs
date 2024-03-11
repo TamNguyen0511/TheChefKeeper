@@ -1,12 +1,14 @@
 ﻿using _Game.Scripts.Interfaces;
 using _Game.Scripts.Interfaces.InterfaceActors;
 using _Game.Scripts.Items;
+using _Game.Scripts.ScriptableObjects.World_Area;
 using UnityEngine;
 
 namespace _Game.Scripts.Cooking.Counters
 {
     public abstract class CounterBase : MonoBehaviour, IInteractable, IActionable
     {
+        public CounterSO CounterData;
         public Item ContainingIngredient;
         #region IInteractable
 

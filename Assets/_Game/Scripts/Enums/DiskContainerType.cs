@@ -1,6 +1,6 @@
 ﻿namespace _Game.Scripts.Enums
 {
-    public enum DiskContainer
+    public enum DiskContainerType
     {
         None,
         Plate,

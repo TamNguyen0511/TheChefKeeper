@@ -9,6 +9,7 @@ namespace _Game.Scripts.Items.Cook
     public class IngredientObject : Item
     {
         public IngredientSO IngredientData;
+        public bool IsCook;
         public GameObject IngredientPrefab;
 
         [ReadOnly]
