@@ -13,6 +13,7 @@ namespace _Game.Scripts.ScriptableObjects.World_Area
         public Image Icon;
         public int Point;
         public string Description;
+        public bool IsNotice;
 
         [Tooltip(
             "A dictionary for bonus time if ingredient preparation need more then tool time to process.\nUse for long time preping ingredient line noodle, ... \nCan be NULL.")]

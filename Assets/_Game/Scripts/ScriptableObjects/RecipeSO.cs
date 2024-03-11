@@ -12,6 +12,7 @@ namespace _Game.Scripts.ScriptableObjects.World_Area
         public string Id;
         public string Name;
         public Image Icon;
+        public bool IsLearned;
 
         public DiskContainerType RequirementContainerType;
         public List<RequirementIngredientAndState> RequirementIngredients = new();

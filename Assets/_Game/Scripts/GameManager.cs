@@ -1,6 +1,7 @@
 ﻿using System;
 using _Game.Scripts.Inventory;
 using _Game.Scripts.UI;
+using Redcode.Pools;
 using UnityEngine;
 
 namespace _Game.Scripts
@@ -9,6 +10,8 @@ namespace _Game.Scripts
     {
         public static GameManager Instance;
 
+        public PoolManager AllPool;
+        
         public UIController UIController;
 
         public InventorySystem Inventory = new InventorySystem();
