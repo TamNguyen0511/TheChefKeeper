@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Game.Scripts.Enums;
 using _Game.Scripts.Items.Cook;
-using _Game.Scripts.ScriptableObjects.World_Area;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

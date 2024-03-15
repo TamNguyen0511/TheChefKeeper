@@ -10,12 +10,14 @@ namespace _Game.Scripts.Cooking.Counters
     {
         public CounterSO CounterData;
         public Item ContainingIngredient;
+
         #region IInteractable
 
         public string InteractionPrompt { get; }
 
         public virtual bool Interact(Interactor interactor)
         {
+            
             return true;
         }
 

@@ -1,4 +1,5 @@
-﻿using _Game.Scripts.Interfaces.InterfaceHelper;
+﻿using System.Numerics;
+using _Game.Scripts.Interfaces.InterfaceHelper;
 using _Game.Scripts.Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
         private LayerMask _interactableMask;
         [SerializeField]
         private InteractionPromtUI _interactionPromtUI;
-        
+
         public Item SelectingItem;
 
         // public PickableItemContainer ItemContainer;
@@ -27,10 +28,9 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
 
         #region Local variables
 
-        [ReadOnly]
         private int _numFound;
 
-        private readonly Collider[] _colliders = new Collider[3];
+        private Collider2D[] _colliders;
 
         private IInteractable _interactable;
         private IActionable _actionable;
@@ -45,8 +45,12 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
 
         public void InteractAction()
         {
-            _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
-                _interactableMask);
+            // _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
+            //     _interactableMask);
+            UnityEngine.Vector2 pos = _interactionPoint.position;
+            _numFound = Physics2D.OverlapCircleAll(pos, _interactionPointRadius, _interactableMask).Length;
+            _colliders = Physics2D.OverlapCircleAll(pos, _interactionPointRadius, _interactableMask);
+            Debug.Log("Getted here: " + _numFound);
 
             if (_numFound > 0)
             {
@@ -72,8 +76,8 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
 
         public void ActionPerform()
         {
-            _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
-                _interactableMask);
+            // _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
+            //     _interactableMask);
 
             if (_numFound > 0)
             {
@@ -99,8 +103,8 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
 
         public void ActionCancel()
         {
-            _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
-                _interactableMask);
+            // _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
+            //     _interactableMask);
 
             if (_numFound > 0)
             {

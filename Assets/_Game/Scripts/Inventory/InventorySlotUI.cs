@@ -1,4 +1,5 @@
 ﻿using _Game.Scripts.Interfaces;
+using _Game.Scripts.Systems.Drag_and_Drop;
 using _Game.Scripts.UI;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -8,12 +9,10 @@ using UnityEngine.UI;
 
 namespace _Game.Scripts.Inventory
 {
-    public class InventorySlotUI : MonoBehaviour, IDetailInformation
+    public class InventorySlotUI : MonoBehaviour, IDropHandler
     {
         [SerializeField, ReadOnly]
         private InventoryItem _holdingItem;
-        [SerializeField]
-        private Image _itemIcon;
         [SerializeField]
         private TextMeshProUGUI _itemAmount;
         /// Alpha will glow on mouse hover object
@@ -24,7 +23,6 @@ namespace _Game.Scripts.Inventory
 
         public void ClearSlot()
         {
-            _itemIcon.sprite = null;
             _itemAmount.text = "";
             _isUsable = true;
             _holdingItem = null;
@@ -35,7 +33,6 @@ namespace _Game.Scripts.Inventory
             if (!_isUsable)
                 return;
 
-            _itemIcon.sprite = item.ItemData.Icon;
             _itemAmount.text = item.StackSize.ToString();
             _isUsable = false;
             _holdingItem = item;
@@ -46,7 +43,7 @@ namespace _Game.Scripts.Inventory
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (_holdingItem == null || _holdingItem.ItemData == null) return;
-            
+
             Color glow = new Color(0, 0, 0, 50 / 255f);
             _hoverLayer.color = glow;
 
@@ -64,5 +61,12 @@ namespace _Game.Scripts.Inventory
         }
 
         #endregion
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            GameObject dropped = eventData.pointerDrag;
+            DraggableItem item = dropped.GetComponent<DraggableItem>();
+            item.ParentAfterDrag = transform;
+        }
     }
 }

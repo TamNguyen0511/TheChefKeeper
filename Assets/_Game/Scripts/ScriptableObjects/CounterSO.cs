@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Game.Scripts.Enums;
+using UnityEngine;
 
 namespace _Game.Scripts.ScriptableObjects.World_Area
 {
@@ -7,6 +8,7 @@ namespace _Game.Scripts.ScriptableObjects.World_Area
     {
         public string Id;
         public string CounterName;
+        public IngredientCookState CounterType;
         public float ProcessingSpeed;
         /// TODO: add level data for speed of each upgrade
     }
