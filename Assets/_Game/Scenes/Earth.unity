@@ -6247,6 +6247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemData: {fileID: 11400000, guid: 40d97ff0d61dd884193b522c57ab7e6a, type: 2}
+  _itemSprite: {fileID: 0}
+  _lootCollider: {fileID: 0}
 --- !u!4 &1804439676
 Transform:
   m_ObjectHideFlags: 0

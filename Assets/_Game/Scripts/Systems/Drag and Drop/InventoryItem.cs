@@ -20,14 +20,17 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
         [ReadOnly]
         public Transform ParentAfterDrag;
 
+        #region Unity functions
+
         private void Start()
         {
             InitItem(Item);
         }
+        #endregion
 
         public void InitItem(ItemSO item)
         {
-            Item = item; 
+            this.Item = item;
             Image.sprite = item.ItemIcon;
             RefreshCount();
         }
@@ -39,6 +42,8 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
             StackTxt.gameObject.SetActive(textActive);
         }
 
+        #region I Drags
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             ParentAfterDrag = transform.parent;
@@ -46,6 +51,7 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
             transform.SetAsLastSibling();
             Image.raycastTarget = false;
         }
+
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -57,5 +63,7 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
             transform.SetParent(ParentAfterDrag);
             Image.raycastTarget = true;
         }
+
+        #endregion
     }
 }
