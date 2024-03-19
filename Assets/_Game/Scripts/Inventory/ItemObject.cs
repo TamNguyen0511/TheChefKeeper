@@ -18,7 +18,7 @@ namespace _Game.Scripts.Inventory
         [Button("Add items")]
         public bool Interact(Interactor interactor)
         {
-            GameManager.Instance.Inventory.Add(_itemData);
+            // GameManager.Instance.Inventory.Add(_itemData);
             
             gameObject.SetActive(false);
             return true;

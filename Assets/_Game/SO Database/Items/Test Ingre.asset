@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1e6eab5db743de852fb50d1f1c6d82, type: 3}
+  m_Name: Test Ingre
+  m_EditorClassIdentifier: 
+  ItemId: I_-1
+  ItemName: Test Item
+  ItemDescription: Just use for testing
+  IsStackable: 1
+  ItemType: 1
+  ItemIcon: {fileID: 21300000, guid: 18010c0b0d3112a4fa9336a3ec1784f8, type: 3}
+  IngredientPoint: 0

@@ -16,8 +16,6 @@ namespace _Game.Scripts.UI
         [SerializeField]
         private Image _itemImage;
 
-        public InventoryItem CurrentReadingItem;
-
         [SerializeField]
         private Vector3 _offset;
         [SerializeField]
@@ -25,7 +23,6 @@ namespace _Game.Scripts.UI
 
         private void OnEnable()
         {
-            SetupInformation(CurrentReadingItem);
         }
 
         private void Update()
@@ -34,18 +31,6 @@ namespace _Game.Scripts.UI
 
             position = Input.mousePosition - _offset;
             transform.position = position;
-        }
-
-        public void SetupInformation(InventoryItem item = null)
-        {
-            if (item == null || item.ItemData == null)
-            {
-                _itemNameTxt.text = "";
-                return;
-            }
-
-            _itemNameTxt.text = item.ItemData.Name;
-            _itemImage.sprite = item.ItemData.Icon;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using _Game.Scripts.Interfaces;
+﻿using System;
+using _Game.Scripts.Interfaces;
 using _Game.Scripts.Systems.Drag_and_Drop;
 using _Game.Scripts.UI;
 using Sirenix.OdinInspector;
@@ -9,45 +10,42 @@ using UnityEngine.UI;
 
 namespace _Game.Scripts.Inventory
 {
-    public class InventorySlotUI : MonoBehaviour, IDropHandler
+    public class InventorySlotUI : MonoBehaviour, IDropHandler,IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField, ReadOnly]
-        private InventoryItem _holdingItem;
         [SerializeField]
         private TextMeshProUGUI _itemAmount;
         /// Alpha will glow on mouse hover object
         [SerializeField]
         private Image _hoverLayer;
         [SerializeField]
-        private bool _isUsable = true;
+        private Sprite _selectedSlotSprite;
+        [SerializeField, ReadOnly]
+        private Sprite _defaultSprite;
 
-        public void ClearSlot()
+        private void Awake()
         {
-            _itemAmount.text = "";
-            _isUsable = true;
-            _holdingItem = null;
+            _defaultSprite = _hoverLayer.sprite;
+            Deselect();
         }
 
-        public void SetItem(InventoryItem item)
+        public void Select()
         {
-            if (!_isUsable)
-                return;
+            _hoverLayer.sprite = _selectedSlotSprite;
+        }
 
-            _itemAmount.text = item.StackSize.ToString();
-            _isUsable = false;
-            _holdingItem = item;
+        public void Deselect()
+        {
+            _hoverLayer.sprite = _defaultSprite;
         }
 
         #region IPointers
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (_holdingItem == null || _holdingItem.ItemData == null) return;
 
             Color glow = new Color(0, 0, 0, 50 / 255f);
             _hoverLayer.color = glow;
 
-            GameManager.Instance.UIController.DetailItemInforUI.CurrentReadingItem = _holdingItem;
             GameManager.Instance.UIController.DetailItemHover(true);
         }
 
@@ -56,7 +54,6 @@ namespace _Game.Scripts.Inventory
             Color dark = new Color(0, 0, 0, 150 / 255f);
             _hoverLayer.color = dark;
 
-            GameManager.Instance.UIController.DetailItemInforUI.CurrentReadingItem = null;
             GameManager.Instance.UIController.DetailItemHover(false);
         }
 
@@ -65,7 +62,7 @@ namespace _Game.Scripts.Inventory
         public void OnDrop(PointerEventData eventData)
         {
             GameObject dropped = eventData.pointerDrag;
-            DraggableItem item = dropped.GetComponent<DraggableItem>();
+            Systems.Drag_and_Drop.InventoryItem item = dropped.GetComponent<Systems.Drag_and_Drop.InventoryItem>();
             item.ParentAfterDrag = transform;
         }
     }

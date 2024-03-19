@@ -14,8 +14,6 @@ namespace _Game.Scripts
         
         public UIController UIController;
 
-        public InventorySystem Inventory = new InventorySystem();
-
         public GameObject InventoryUI;
 
         public Action<ItemDataSO> OnUpdateItem;
