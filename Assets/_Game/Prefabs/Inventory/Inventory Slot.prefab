@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b47a98236404d68bd95373124916420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemAmount: {fileID: 0}
-  _hoverLayer: {fileID: 0}
-  _isUsable: 1
+  _hoverLayer: {fileID: 1338858735426619323}
+  _selectedSlotSprite: {fileID: 532562830, guid: 4b443ff16920428439b2d6f86fe3d359, type: 3}
+  _defaultSprite: {fileID: 0}
 --- !u!222 &7490621457838616812
 CanvasRenderer:
   m_ObjectHideFlags: 0

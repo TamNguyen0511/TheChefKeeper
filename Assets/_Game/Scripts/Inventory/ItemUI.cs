@@ -16,7 +16,5 @@ namespace _Game.Scripts.Inventory
 
         public Image ItemIcon => _itemIcon;
         public TextMeshProUGUI AmountTxt => _amountTxt;
-        
-        
     }
 }

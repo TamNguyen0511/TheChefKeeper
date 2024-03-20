@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game.Scripts.Inventory;
 using _Game.Scripts.ScriptableObjects.Items;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -12,6 +13,9 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
     public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public ItemSO Item;
+
+        [Header("Object to spawn")]
+        public ItemObject ItemObjectToSpawn;
         [Header("UI")]
         public Image Image;
         public TextMeshProUGUI StackTxt;
@@ -26,6 +30,7 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
         {
             InitItem(Item);
         }
+
         #endregion
 
         public void InitItem(ItemSO item)
@@ -41,6 +46,8 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
             bool textActive = StackCount > 1;
             StackTxt.gameObject.SetActive(textActive);
         }
+
+
 
         #region I Drags
 

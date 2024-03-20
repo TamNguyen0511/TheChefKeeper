@@ -9,15 +9,6 @@ namespace _Game.Scripts.Items.Cook
     public class IngredientObject : Item
     {
         public IngredientSO IngredientData;
-        public bool IsCook;
-        public GameObject IngredientPrefab;
-
-        [ReadOnly]
-        public IngredientPrepState CurrentPrepState;
-        [ReadOnly]
-        public IngredientCookState CurrentCookState;
-
-        public List<IngredientPrepState> PrepableState = new();
-        public List<IngredientCookState> CookableState = new();
+        public IngredientPrepState CurrentIngredientState;
     }
 }

@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using _Game.Scripts.Enums;
+using _Game.Scripts.Helpers;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game.Scripts.ScriptableObjects.Items
 {
@@ -6,6 +10,14 @@ namespace _Game.Scripts.ScriptableObjects.Items
     public class IngredientSO : ItemSO
     {
         [Header("Ingredients fields")]
+        public IngredientPrepState IngredientPrepState;
         public int IngredientPoint;
+        public NewCookStateAndTime NewCookStateAndTime = new();
+    }
+
+    [System.Serializable]
+    public class NewCookStateAndTime : UnitySerializedDictionary<IngredientSO, float>
+    {
+        
     }
 }

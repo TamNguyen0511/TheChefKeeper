@@ -6,7 +6,7 @@ namespace _Game.Scripts.UI
     public class UIController : MonoBehaviour
     {
         public DetailItemInforUI DetailItemInforUI;
-        public CookingCounterInformationUI CookingCounterInformationUI;
+        public GameObject CookingUI;
 
         public void DetailItemHover(bool active)
         {

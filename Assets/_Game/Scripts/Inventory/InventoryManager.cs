@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Game.Scripts.ScriptableObjects.Items;
 using _Game.Scripts.Systems.Drag_and_Drop;
-using Ink.Parsed;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,6 +9,7 @@ namespace _Game.Scripts.Inventory
     public class InventoryManager : MonoBehaviour
     {
         public static InventoryManager Instance;
+        public ItemObject ItemToSpawn;
         [ShowInInspector, ReadOnly]
         private int _selectingSlot = -1;
 
@@ -87,6 +86,11 @@ namespace _Game.Scripts.Inventory
             InventoryItem inventoryItem = newItem.GetComponent<InventoryItem>();
 
             inventoryItem.InitItem(item);
+        }
+        public void SpawnBackToOutsideEnvironment(ItemSO item)
+        {
+            ItemObject newSpawnItem = Instantiate(ItemToSpawn);
+            newSpawnItem.SetupItem(item);
         }
 
         #endregion

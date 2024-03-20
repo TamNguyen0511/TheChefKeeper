@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using _Game.Scripts.ScriptableObjects.World_Area;
 using UnityEngine;
+using IngredientSO = _Game.Scripts.ScriptableObjects.Items.IngredientSO;
 
 namespace _Game.Scripts.Database
 {

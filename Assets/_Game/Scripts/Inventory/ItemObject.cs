@@ -1,4 +1,5 @@
-﻿using _Game.Scripts.Interfaces;
+﻿using System;
+using _Game.Scripts.Interfaces;
 using _Game.Scripts.Interfaces.InterfaceActors;
 using _Game.Scripts.Items;
 using _Game.Scripts.ScriptableObjects.Items;
@@ -22,6 +23,11 @@ namespace _Game.Scripts.Inventory
 
         public string InteractionPrompt { get; }
 
+        private void Awake()
+        {
+            _lootCollider = GetComponent<CircleCollider2D>();
+        }
+
         private void OnEnable()
         {
             InitItem();
@@ -40,6 +46,10 @@ namespace _Game.Scripts.Inventory
             _itemSprite.sprite = _itemData.ItemIcon;
         }
 
+        public void SetupItem(ItemSO item)
+        {
+            _itemData = item;
+        }
         public bool Interact(Interactor interactor)
         {
             gameObject.SetActive(false);
