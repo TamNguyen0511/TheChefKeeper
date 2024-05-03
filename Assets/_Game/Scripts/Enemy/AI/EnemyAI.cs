@@ -12,50 +12,35 @@ public class EnemyAI : MonoBehaviour
 {
     #region Attributes
 
-    [Title("Enemy type")]
-    [SerializeField]
-    private EnemyType _enemyType;
+    [Title("Enemy type")] [SerializeField] private EnemyType _enemyType;
 
-    [Title("Scripts component")]
-    [SerializeField]
+    [Title("Scripts component")] [SerializeField]
     private ContextSolver _movementDirectionSolver;
-    [SerializeField]
-    private AIData _aiData;
 
-    [Title("Status")]
-    [SerializeField]
-    private float _detectionDelay = 0.05f;
-    [SerializeField]
-    private float _aiUpdateDelay = 0.06f;
-    [SerializeField]
-    private float _attackDelay = 1f;
-    [SerializeField]
-    private float _attackDistance = 0.5f;
-    [SerializeField]
-    private float _targetGiveupRange = 15;
-    [SerializeField]
-    private float _timeToMoveRandomly = 5f;
-    [SerializeField]
-    private float _timeMoveWhileNotChasing = 2f;
-    [SerializeField]
-    private float _timeRestWhileNotChasing = 2f;
+    [SerializeField] private AIData _aiData;
+
+    [Title("Status")] [SerializeField] private float _detectionDelay = 0.05f;
+    [SerializeField] private float _aiUpdateDelay = 0.06f;
+    [SerializeField] private float _attackDelay = 1f;
+    [SerializeField] private float _attackDistance = 0.5f;
+    [SerializeField] private float _targetGiveupRange = 15;
+    [SerializeField] private float _timeToMoveRandomly = 5f;
+    [SerializeField] private float _timeMoveWhileNotChasing = 2f;
+    [SerializeField] private float _timeRestWhileNotChasing = 2f;
 
 
-    [Title("Checking input")]
-    [SerializeField]
+    [Title("Checking input")] [SerializeField]
     private Vector2 _movementInput;
 
-    [Title("Component List")]
-    [SerializeField]
+    [Title("Component List")] [SerializeField]
     private List<SteeringBehaviour> _steeringBehaviours;
-    [SerializeField]
-    private List<Detector> _detectors;
 
-    [Title("Events")]
-    public UnityEvent OnAttackPressed;
+    [SerializeField] private List<Detector> _detectors;
+
+    [Title("Events")] public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
 
-    private bool _isFollowing = false;
+    [ReadOnly, SerializeField] private bool _isFollowing = false;
     private float _countTimeToMoveRandomly;
     private bool _isResting = false;
 
@@ -94,8 +79,6 @@ public class EnemyAI : MonoBehaviour
         {
             _aiData.CurrentTarget = _aiData.Targets[0];
         }
-
-        OnMovementInput?.Invoke(_movementInput);
     }
 
     #endregion
@@ -164,5 +147,7 @@ public class EnemyAI : MonoBehaviour
             yield return new WaitForSeconds(_aiUpdateDelay);
             StartCoroutine(ChaseAndAttack());
         }
+
+        OnMovementInput?.Invoke(_movementInput);
     }
 }
