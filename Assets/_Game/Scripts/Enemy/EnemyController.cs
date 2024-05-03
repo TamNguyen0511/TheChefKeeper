@@ -10,14 +10,15 @@ public class EnemyController : DefaultEnemyBehaviour
 
     private void OnEnable()
     {
-        GetComponent<EnemyAI>().OnMovementInput.AddListener(SetMoveDirection);
+        EnemyAI.OnMovementInput.AddListener(ChasePlayer);
         // ZoneManager.OnEnterSafeZone += () => PoolManager.Instance.enemyPooler[EnemyName].Release(this);
     }
 
-    private void SetMoveDirection(Vector2 moveDir)
+    private void ChasePlayer(Vector2 moveDir)
     {
         MovementInput = moveDir;
     }
+
 
     protected override void FixedUpdate()
     {
