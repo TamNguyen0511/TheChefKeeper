@@ -19,6 +19,12 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private AIData _aiData;
 
+    public AIData AIData
+    {
+        get => _aiData;
+        private set => _aiData = value;
+    }
+
     [Title("Status")] [SerializeField] private float _detectionDelay = 0.05f;
     [SerializeField] private float _aiUpdateDelay = 0.06f;
     [SerializeField] private float _attackDelay = 1f;
@@ -123,9 +129,11 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator ChaseAndAttack()
     {
+        Debug.Log(_aiData.CurrentTarget);
         if (_aiData.CurrentTarget == null)
         {
-            Debug.Log("Stopping");
+            Debug.Log("Stopping: " + GetComponent<EnemyController>());
+            GetComponent<EnemyController>()?.ChangeState(EnemyState.Patrolling);
             _movementInput = Vector2.zero;
             _isFollowing = false;
             yield break;
@@ -148,6 +156,7 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(ChaseAndAttack());
         }
 
+        Debug.Log("Get here?");
         OnMovementInput?.Invoke(_movementInput);
     }
 }

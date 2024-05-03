@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Game.Scripts.Enums;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,6 +17,12 @@ public class EnemyController : DefaultEnemyBehaviour
 
     private void ChasePlayer(Vector2 moveDir)
     {
+        if (CurrentState != EnemyState.Chase)
+        {
+            Animator.SetTrigger(ANIMATOR_CHASE_STATE);
+            ChangeState(EnemyState.Chase);
+        }
+
         MovementInput = moveDir;
     }
 

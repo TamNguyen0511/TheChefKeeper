@@ -41,32 +41,35 @@ public class DefaultEnemyBehaviour : MonoBehaviour
         _patrollingPosition = _allPatrollingPoints[_patrollingPointCounting];
     }
 
-    // private void Update()
-    // {
-    //     if (CurrentState != EnemyState.Patrolling) return;
-    //
-    //     transform.position = Vector2.MoveTowards(transform.position, _patrollingPosition,
-    //         DefaultEnemyStat.MaxMoveSpeed / 2 * Time.deltaTime);
-    //
-    //     if (Vector2.Distance(transform.position, _patrollingPosition) < 0.2f)
-    //     {
-    //         if (_currentPatrolWaitTime <= 0)
-    //         {
-    //             _patrollingPosition = _allPatrollingPoints[_patrollingPointCounting % _allPatrollingPoints.Count];
-    //             _currentPatrolWaitTime = _patrolWaitTime;
-    //         }
-    //         else
-    //         {
-    //             _currentPatrolWaitTime -= Time.deltaTime;
-    //             Animator.SetTrigger(ANIMATOR_IDLE_STATE);
-    //             _patrollingPointCounting++;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         Animator.SetTrigger(ANIMATOR_PATROLLING_STATE);
-    //     }
-    // }
+    private void Update()
+    {
+        if (EnemyAI.AIData.CurrentTarget == null && CurrentState != EnemyState.Patrolling)
+            ChangeState(EnemyState.Patrolling);
+
+        if (CurrentState != EnemyState.Patrolling) return;
+
+        transform.position = Vector2.MoveTowards(transform.position, _patrollingPosition,
+            DefaultEnemyStat.MaxMoveSpeed / 2 * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, _patrollingPosition) < 0.2f)
+        {
+            if (_currentPatrolWaitTime <= 0)
+            {
+                _patrollingPosition = _allPatrollingPoints[_patrollingPointCounting % _allPatrollingPoints.Count];
+                _currentPatrolWaitTime = _patrolWaitTime;
+            }
+            else
+            {
+                _currentPatrolWaitTime -= Time.deltaTime;
+                Animator.SetTrigger(ANIMATOR_IDLE_STATE);
+                _patrollingPointCounting++;
+            }
+        }
+        else
+        {
+            Animator.SetTrigger(ANIMATOR_PATROLLING_STATE);
+        }
+    }
 
     protected virtual void FixedUpdate()
     {
@@ -86,6 +89,20 @@ public class DefaultEnemyBehaviour : MonoBehaviour
     public virtual async void ChangeState(EnemyState newState)
     {
         CurrentState = CurrentState == newState ? CurrentState : newState;
+        Debug.Log(CurrentState);
+        switch (CurrentState)
+        {
+            case EnemyState.Patrolling:
+                Animator.SetTrigger(ANIMATOR_PATROLLING_STATE);
+                break;
+            case EnemyState.Chase:
+                Animator.SetTrigger(ANIMATOR_CHASE_STATE);
+                break;
+            case EnemyState.Attack:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     // private void ChasePlayer(Vector2 moveDir)
