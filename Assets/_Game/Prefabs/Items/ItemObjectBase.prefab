@@ -49,7 +49,7 @@ MonoBehaviour:
   _itemData: {fileID: 0}
   _playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _itemSprite: {fileID: 9009059424008926040}
   _lootCollider: {fileID: 0}
 --- !u!58 &4483804159065969883
