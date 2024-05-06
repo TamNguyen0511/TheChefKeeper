@@ -10,7 +10,7 @@ namespace _Game.Scripts.Database
     {
         public static RecipeDatabase Instance;
 
-        public List<RecipeSO> AllDiskes = new();
+        // public List<RecipeSO> AllDiskes = new();
         public List<IngredientSO> AllIngredients = new();
 
         private void Awake()

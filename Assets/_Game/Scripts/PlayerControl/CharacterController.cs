@@ -27,15 +27,15 @@ namespace _Game.Scripts.PlayerControl
         private void OnEnable()
         {
             _playerInput = GetComponent<PlayerInputHandle>();
-            _playerInput.OnAttackPress += Attack;
+            _playerInput.OnAttackPress += UseSelectingItem;
         }
 
         private void OnDisable()
         {
-            _playerInput.OnAttackPress -= Attack;
+            _playerInput.OnAttackPress -= UseSelectingItem;
         }
 
-        private void Attack()
+        private void UseSelectingItem()
         {
             SelectingItem = InventoryManager.Instance.GetSelectingItem();
 
@@ -51,6 +51,8 @@ namespace _Game.Scripts.PlayerControl
                 weapon.Attack();
             }
             else SelectingItem.UseItem();
+            
+            Debug.Log(weapon == null ? "Not a weapon" : "Is a weapon");
         }
 
         #region Player's flash-light

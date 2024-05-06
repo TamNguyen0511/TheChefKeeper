@@ -8,7 +8,7 @@ namespace _Game.Scripts
     public class TestScript : MonoBehaviour
     {
         public InventoryManager InventoryManager;
-        public ItemSO[] Items;
+        public BaseItemSO[] Items;
 
         [Button("Add item demo")]
         public void PickupItem(int id)

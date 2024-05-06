@@ -1,12 +1,13 @@
 ﻿using _Game.Scripts.Interfaces;
+using _Game.Scripts.ScriptableObjects.Items;
 using _Game.Scripts.ScriptableObjects.World_Area;
+using _Game.Scripts.Systems.Drag_and_Drop;
 using UnityEngine;
 
 namespace _Game.Scripts.Items.Weapons
 {
-    public abstract class Weapon : Item, IWeapon
+    public class Weapon : InventoryItem, IWeapon
     {
-        public WeaponSO WeaponInfo;
         public Animator WeaponAnim;
 
         public string AttackAnimTrigger;
@@ -19,7 +20,6 @@ namespace _Game.Scripts.Items.Weapons
 
         public virtual void HoldAttack()
         {
-            
         }
 
         #endregion

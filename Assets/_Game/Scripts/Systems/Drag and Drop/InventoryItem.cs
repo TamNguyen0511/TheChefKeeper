@@ -16,8 +16,6 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
     /// </summary>
     public class InventoryItem : Item, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public ItemSO Item;
-
         [Header("Object to spawn")] public ItemObject HoldingItem;
         [Header("UI")] public Image Image;
         public TextMeshProUGUI StackTxt;
@@ -28,15 +26,17 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
 
         private void Start()
         {
-            InitItem(Item);
+            if (BaseItemData == null) return;
+            if (Image == null) return;
+            InitItem(BaseItemData);
         }
 
         #endregion
 
-        public void InitItem(ItemSO item)
+        public void InitItem(BaseItemSO baseItem)
         {
-            this.Item = item;
-            Image.sprite = item.ItemIcon;
+            this.BaseItemData = baseItem;
+            Image.sprite = baseItem.ItemIcon;
             RefreshCount();
         }
 

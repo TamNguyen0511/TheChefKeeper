@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game.Scripts.Interfaces;
+using _Game.Scripts.ScriptableObjects.Items;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace _Game.Scripts.Items.Weapons
 
         public override void Attack()
         {
+            WeaponSO WeaponInfo = BaseItemData as WeaponSO;
+            if (WeaponInfo == null) return;
             if (_timeBetweenAttack <= 0)
             {
                 WeaponAnim.SetTrigger(AttackAnimTrigger);
@@ -30,7 +33,7 @@ namespace _Game.Scripts.Items.Weapons
                 if (hitteds.Length > 0)
                     foreach (Collider2D hit in hitteds)
                         if (hit.GetComponent<IDamageable>() != null)
-                            hit.GetComponent<IDamageable>().TakeHit(WeaponInfo.Damage);
+                            hit.GetComponent<IDamageable>().TakeHit(WeaponInfo.BaseDamage);
 
                 _timeBetweenAttack = _startTimeBetweenAttack;
             }

@@ -16,8 +16,6 @@ namespace _Game.Scripts
 
         public GameObject InventoryUI;
 
-        public Action<ItemDataSO> OnUpdateItem;
-
         private void Awake()
         {
             if (Instance == null)

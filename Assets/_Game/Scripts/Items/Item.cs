@@ -8,7 +8,7 @@ namespace _Game.Scripts.Items
 {
     public abstract class Item : MonoBehaviour
     {
-        public ItemSO ItemData;
+        public BaseItemSO BaseItemData;
         public LayerMask PlayerLayer;
         public SpriteRenderer ItemSprite;
         [ReadOnly] public CircleCollider2D LootCollider;

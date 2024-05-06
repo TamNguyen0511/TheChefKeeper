@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 namespace _Game.Scripts.ScriptableObjects.Items
 {
     [CreateAssetMenu(fileName = "Ingredient", menuName = "Item/Ingredient", order = 0)]
-    public class IngredientSO : ItemSO
+    public class IngredientSO : BaseItemSO
     {
         [Header("Ingredients fields")]
         public IngredientPrepState IngredientPrepState;

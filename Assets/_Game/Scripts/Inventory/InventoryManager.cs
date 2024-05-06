@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using _Game.Scripts.Enums;
 using _Game.Scripts.Items;
+using _Game.Scripts.Items.Weapons;
 using _Game.Scripts.ScriptableObjects.Items;
 using _Game.Scripts.Systems.Drag_and_Drop;
 using Sirenix.OdinInspector;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace _Game.Scripts.Inventory
@@ -61,14 +65,14 @@ namespace _Game.Scripts.Inventory
 
                 if (itemInSlot == null)
                 {
-                    SpawnNewItem(item.ItemData, slot);
+                    SpawnNewItem(item, slot);
                     return true;
                 }
 
                 if (itemInSlot != null
-                    && itemInSlot.Item == item
-                    && itemInSlot.Item.IsStackable
-                    && itemInSlot.StackCount < itemInSlot.Item.MaxStack)
+                    && itemInSlot.BaseItemData == item
+                    && itemInSlot.BaseItemData.IsStackable
+                    && itemInSlot.StackCount < itemInSlot.BaseItemData.MaxStack)
                 {
                     itemInSlot.StackCount++;
                     itemInSlot.RefreshCount();
@@ -80,18 +84,49 @@ namespace _Game.Scripts.Inventory
             return false;
         }
 
-        public void SpawnNewItem(ItemSO item, InventorySlotUI slot)
+        public void SpawnNewItem(Item baseItem, InventorySlotUI slot)
         {
             GameObject newItem = Instantiate(InventoryItemPrefab, slot.transform);
-            InventoryItem inventoryItem = newItem.GetComponent<InventoryItem>();
+            Item item = newItem.GetComponent<Item>();
+            InventoryItem inventoryItem = item as InventoryItem;
 
-            inventoryItem.InitItem(item);
+
+            switch (baseItem.BaseItemData.ItemType)
+            {
+                case ItemType.None:
+                    break;
+                case ItemType.Ingredient:
+                    break;
+                case ItemType.Material:
+                    break;
+                case ItemType.Weapon:
+                    newItem.AddComponent<Weapon>();
+                    Weapon weaponItem = newItem.GetComponent<Weapon>();
+                    weaponItem.Image = inventoryItem.Image;
+                    weaponItem.StackTxt = inventoryItem.StackTxt;
+                    weaponItem.StackCount = inventoryItem.StackCount;
+
+                    if (weaponItem != null)
+                        weaponItem.InitItem(baseItem.BaseItemData);
+
+                    Destroy(newItem.GetComponent<InventoryItem>());
+                    break;
+                case ItemType.Consumable:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            //
+            // InventoryItem inventoryItem = item as InventoryItem;
+            //
+            // if (inventoryItem != null)
+            //     inventoryItem.InitItem(baseItem);
         }
 
-        public void SpawnBackToOutsideEnvironment(ItemSO item)
+        public void SpawnBackToOutsideEnvironment(BaseItemSO baseItem)
         {
             ItemObject newSpawnItem = Instantiate(ItemToSpawn);
-            newSpawnItem.SetupItem(item);
+            newSpawnItem.SetupItem(baseItem);
         }
 
         #endregion

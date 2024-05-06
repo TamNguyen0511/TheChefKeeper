@@ -3,12 +3,15 @@ using UnityEngine;
 
 namespace _Game.Scripts.ScriptableObjects.Items
 {
-    [CreateAssetMenu(fileName = "Weapon", menuName = "Items/Weapon", order = 0)]
-    public class WeaponSO : ScriptableObject
+    [CreateAssetMenu(fileName = "Weapon", menuName = "Item/Weapon", order = 0)]
+    public class WeaponSO : BaseItemSO
     {
-        [Header("Weapon fields")]
+        [Header("Weapon fields")] 
+        
         public WeaponType WeaponType;
-        public float BaseDamage;
+
+        public LayerMask DamagableLayer;
+        public int BaseDamage;
         public float AttackSpeed;
         public float ReloadSpeed;
     }

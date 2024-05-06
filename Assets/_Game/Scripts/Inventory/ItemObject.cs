@@ -34,12 +34,12 @@ namespace _Game.Scripts.Inventory
 
         private void InitItem()
         {
-            ItemSprite.sprite = ItemData.ItemIcon;
+            ItemSprite.sprite = BaseItemData.ItemIcon;
         }
 
-        public void SetupItem(ItemSO item)
+        public void SetupItem(BaseItemSO baseItem)
         {
-            ItemData = item;
+            BaseItemData = baseItem;
         }
 
         public bool Interact(Interactor interactor)
