@@ -11,21 +11,9 @@ public class EnemyController : DefaultEnemyBehaviour
 
     private void OnEnable()
     {
-        EnemyAI.OnMovementInput.AddListener(ChasePlayer);
+        // EnemyAI.OnMovementInput.AddListener(ChasePlayer);
         // ZoneManager.OnEnterSafeZone += () => PoolManager.Instance.enemyPooler[EnemyName].Release(this);
     }
-
-    private void ChasePlayer(Vector2 moveDir)
-    {
-        if (CurrentState != EnemyState.Chase)
-        {
-            Animator.SetTrigger(ANIMATOR_CHASE_STATE);
-            ChangeState(EnemyState.Chase);
-        }
-
-        MovementInput = moveDir;
-    }
-
 
     protected override void FixedUpdate()
     {

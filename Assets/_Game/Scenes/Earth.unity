@@ -5097,7 +5097,7 @@ MonoBehaviour:
   SelectingItem: {fileID: 1895632562}
   _light2D: {fileID: 139957487}
   _lightHolder: {fileID: 1765560632}
-  _lightMaxIntensity: 0.75
+  _lightMaxIntensity: 0
 --- !u!70 &1290238344
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7415,10 +7415,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a870c1554814ec1b213d50066685c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemData: {fileID: 11400000, guid: 40d97ff0d61dd884193b522c57ab7e6a, type: 2}
+  _itemData: {fileID: 11400000, guid: 9903c1e76e1752e4d993f7719fabd42d, type: 2}
   _playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _itemSprite: {fileID: 0}
   _lootCollider: {fileID: 0}
 --- !u!4 &1804439676
@@ -14315,6 +14315,10 @@ PrefabInstance:
     - target: {fileID: 3580163515117230112, guid: 2b845c3de2f69fe438d7a79d03b1882d, type: 3}
       propertyPath: m_Name
       value: Test Item Object
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593490004926741041, guid: 2b845c3de2f69fe438d7a79d03b1882d, type: 3}
+      propertyPath: _playerLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

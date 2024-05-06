@@ -6,14 +6,15 @@ using _Game.Scripts.ScriptableObjects.World_Area.Enemy;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class DefaultEnemyBehaviour : MonoBehaviour
 {
-    public const string ANIMATOR_IDLE_STATE = "Idle";
-    public const string ANIMATOR_PATROLLING_STATE = "Patrolling";
-    public const string ANIMATOR_CHASE_STATE = "Chase";
-    public const string ANIMATOR_ATTACK_STATE = "Attack";
+    public readonly string ANIMATOR_IDLE_STATE = "Idle";
+    public readonly string ANIMATOR_PATROLLING_STATE = "Patrolling";
+    public readonly string ANIMATOR_CHASE_STATE = "Chase";
+    public readonly string ANIMATOR_ATTACK_STATE = "Attack";
 
     public EnemySO DefaultEnemyStat;
     public EnemyAI EnemyAI;
@@ -22,95 +23,31 @@ public class DefaultEnemyBehaviour : MonoBehaviour
     public SpriteRenderer EnemySprite;
     public Animator Animator;
 
-    [ShowInInspector]
+    [ShowInInspector, ReadOnly]
     public Vector2 MovementInput { get; set; }
 
-    [SerializeField] private float currentSpeed;
-    private int _currentHP;
+    [SerializeField, ReadOnly] private float currentSpeed;
+    [SerializeField, ReadOnly] private int _currentHP;
 
     [SerializeField] private List<Vector2> _allPatrollingPoints = new();
-    [SerializeField] private Vector2 _patrollingPosition;
+
     private int _patrollingPointCounting = 0;
     private float _patrolWaitTime = 2;
-    [SerializeField] private float _currentPatrolWaitTime;
+
+    [HideInInspector] public Vector2 PatrollingPosition;
+    [ReadOnly] public float CurrentPatrolWaitTime;
 
     protected virtual void Start()
     {
         _currentHP = DefaultEnemyStat.MaxHP;
-        _currentPatrolWaitTime = _patrolWaitTime;
-        _patrollingPosition = _allPatrollingPoints[_patrollingPointCounting];
-    }
-
-    private void Update()
-    {
-        if (EnemyAI.AIData.CurrentTarget == null && CurrentState != EnemyState.Patrolling)
-            ChangeState(EnemyState.Patrolling);
-
-        if (CurrentState != EnemyState.Patrolling) return;
-
-        transform.position = Vector2.MoveTowards(transform.position, _patrollingPosition,
-            DefaultEnemyStat.MaxMoveSpeed / 2 * Time.deltaTime);
-
-        if (Vector2.Distance(transform.position, _patrollingPosition) < 0.2f)
-        {
-            if (_currentPatrolWaitTime <= 0)
-            {
-                _patrollingPosition = _allPatrollingPoints[_patrollingPointCounting % _allPatrollingPoints.Count];
-                _currentPatrolWaitTime = _patrolWaitTime;
-            }
-            else
-            {
-                _currentPatrolWaitTime -= Time.deltaTime;
-                Animator.SetTrigger(ANIMATOR_IDLE_STATE);
-                _patrollingPointCounting++;
-            }
-        }
-        else
-        {
-            Animator.SetTrigger(ANIMATOR_PATROLLING_STATE);
-        }
+        CurrentPatrolWaitTime = _patrolWaitTime;
+        PatrollingPosition = _allPatrollingPoints[_patrollingPointCounting];
     }
 
     protected virtual void FixedUpdate()
     {
-        if (MovementInput.magnitude > 0 && currentSpeed >= 0)
-        {
-            currentSpeed += DefaultEnemyStat.Acceleration * DefaultEnemyStat.MaxMoveSpeed * Time.deltaTime;
-        }
-        else
-        {
-            currentSpeed -= DefaultEnemyStat.Deacceleration * DefaultEnemyStat.MaxMoveSpeed * Time.deltaTime;
-        }
-
-        currentSpeed = Mathf.Clamp(currentSpeed, 0, DefaultEnemyStat.MaxMoveSpeed);
-        Rigidbody.velocity = MovementInput * currentSpeed;
+        // ChasePlayer();
     }
-
-    public virtual async void ChangeState(EnemyState newState)
-    {
-        CurrentState = CurrentState == newState ? CurrentState : newState;
-        Debug.Log(CurrentState);
-        switch (CurrentState)
-        {
-            case EnemyState.Patrolling:
-                Animator.SetTrigger(ANIMATOR_PATROLLING_STATE);
-                break;
-            case EnemyState.Chase:
-                Animator.SetTrigger(ANIMATOR_CHASE_STATE);
-                break;
-            case EnemyState.Attack:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-
-    // private void ChasePlayer(Vector2 moveDir)
-    // {
-    //     MovementInput = moveDir;
-    //     Debug.Log("Getted here");
-    //     Animator.SetTrigger(ANIMATOR_CHASE_STATE);
-    // }
 
     protected virtual void Attack()
     {
@@ -127,4 +64,33 @@ public class DefaultEnemyBehaviour : MonoBehaviour
     {
         Animator.SetTrigger(deadAnimTrigger);
     }
+
+    #region Test SMB
+
+    public void ResetWaitingToPatrolTime()
+    {
+        _patrollingPointCounting++;
+        if (_patrollingPointCounting >= _allPatrollingPoints.Count)
+            _patrollingPointCounting = 0;
+
+        PatrollingPosition = _allPatrollingPoints[_patrollingPointCounting % _allPatrollingPoints.Count];
+        CurrentPatrolWaitTime = _patrolWaitTime;
+    }
+
+    public void ChasePlayer()
+    {
+        if (MovementInput.magnitude > 0 && currentSpeed >= 0)
+        {
+            currentSpeed += DefaultEnemyStat.Acceleration * DefaultEnemyStat.MaxMoveSpeed * Time.deltaTime;
+        }
+        else
+        {
+            currentSpeed -= DefaultEnemyStat.Deacceleration * DefaultEnemyStat.MaxMoveSpeed * Time.deltaTime;
+        }
+
+        currentSpeed = Mathf.Clamp(currentSpeed, 0, DefaultEnemyStat.MaxMoveSpeed);
+        Rigidbody.velocity = MovementInput * currentSpeed;
+    }
+
+    #endregion
 }

@@ -129,11 +129,8 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator ChaseAndAttack()
     {
-        Debug.Log(_aiData.CurrentTarget);
         if (_aiData.CurrentTarget == null)
         {
-            Debug.Log("Stopping: " + GetComponent<EnemyController>());
-            GetComponent<EnemyController>()?.ChangeState(EnemyState.Patrolling);
             _movementInput = Vector2.zero;
             _isFollowing = false;
             yield break;
@@ -156,7 +153,6 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(ChaseAndAttack());
         }
 
-        Debug.Log("Get here?");
         OnMovementInput?.Invoke(_movementInput);
     }
 }
