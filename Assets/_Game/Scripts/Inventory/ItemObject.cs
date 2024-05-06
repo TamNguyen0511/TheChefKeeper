@@ -14,6 +14,8 @@ namespace _Game.Scripts.Inventory
     /// </summary>
     public class ItemObject : Item, IInteractable
     {
+        public SpriteRenderer ItemSprite;
+
         #region IInteractable
 
         public string InteractionPrompt { get; }

@@ -89,38 +89,8 @@ namespace _Game.Scripts.Inventory
             GameObject newItem = Instantiate(InventoryItemPrefab, slot.transform);
             Item item = newItem.GetComponent<Item>();
             InventoryItem inventoryItem = item as InventoryItem;
-
-
-            switch (baseItem.BaseItemData.ItemType)
-            {
-                case ItemType.None:
-                    break;
-                case ItemType.Ingredient:
-                    break;
-                case ItemType.Material:
-                    break;
-                case ItemType.Weapon:
-                    newItem.AddComponent<Weapon>();
-                    Weapon weaponItem = newItem.GetComponent<Weapon>();
-                    weaponItem.Image = inventoryItem.Image;
-                    weaponItem.StackTxt = inventoryItem.StackTxt;
-                    weaponItem.StackCount = inventoryItem.StackCount;
-
-                    if (weaponItem != null)
-                        weaponItem.InitItem(baseItem.BaseItemData);
-
-                    Destroy(newItem.GetComponent<InventoryItem>());
-                    break;
-                case ItemType.Consumable:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            //
-            // InventoryItem inventoryItem = item as InventoryItem;
-            //
-            // if (inventoryItem != null)
-            //     inventoryItem.InitItem(baseItem);
+            if (inventoryItem != null)
+                inventoryItem.InitItem(baseItem.BaseItemData);
         }
 
         public void SpawnBackToOutsideEnvironment(BaseItemSO baseItem)

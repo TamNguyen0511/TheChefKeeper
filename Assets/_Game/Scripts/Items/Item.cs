@@ -10,7 +10,6 @@ namespace _Game.Scripts.Items
     {
         public BaseItemSO BaseItemData;
         public LayerMask PlayerLayer;
-        public SpriteRenderer ItemSprite;
         [ReadOnly] public CircleCollider2D LootCollider;
 
         protected virtual void OnEnable()

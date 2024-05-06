@@ -45,14 +45,7 @@ namespace _Game.Scripts.PlayerControl
                 return;
             }
 
-            Weapon weapon = SelectingItem as Weapon;
-            if (weapon != null)
-            {
-                weapon.Attack();
-            }
-            else SelectingItem.UseItem();
-            
-            Debug.Log(weapon == null ? "Not a weapon" : "Is a weapon");
+            SelectingItem.UseItem();
         }
 
         #region Player's flash-light
