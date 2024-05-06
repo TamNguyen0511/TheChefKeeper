@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverLayer: {fileID: 1338858735426619323}
-  _selectedSlotSprite: {fileID: 532562830, guid: 4b443ff16920428439b2d6f86fe3d359, type: 3}
+  _selectedSlotSprite: {fileID: -1915145943, guid: 7da8668fc9d0b4cdc8364ebcaba025fb, type: 3}
   _defaultSprite: {fileID: 0}
 --- !u!222 &7490621457838616812
 CanvasRenderer:
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56cbaaf0cc49249e4982cea8b7e4abae, type: 3}
+  m_Sprite: {fileID: 76412950, guid: 7da8668fc9d0b4cdc8364ebcaba025fb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

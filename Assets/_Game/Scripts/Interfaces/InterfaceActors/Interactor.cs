@@ -50,7 +50,6 @@ namespace _Game.Scripts.Interfaces.InterfaceActors
             UnityEngine.Vector2 pos = _interactionPoint.position;
             _numFound = Physics2D.OverlapCircleAll(pos, _interactionPointRadius, _interactableMask).Length;
             _colliders = Physics2D.OverlapCircleAll(pos, _interactionPointRadius, _interactableMask);
-            Debug.Log("Getted here: " + _numFound);
 
             if (_numFound > 0)
             {

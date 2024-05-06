@@ -14,9 +14,4 @@ public class EnemyController : DefaultEnemyBehaviour
         // EnemyAI.OnMovementInput.AddListener(ChasePlayer);
         // ZoneManager.OnEnterSafeZone += () => PoolManager.Instance.enemyPooler[EnemyName].Release(this);
     }
-
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
 }

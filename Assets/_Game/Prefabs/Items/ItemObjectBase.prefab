@@ -46,12 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a870c1554814ec1b213d50066685c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemData: {fileID: 0}
-  _playerLayer:
+  ItemData: {fileID: 0}
+  PlayerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _itemSprite: {fileID: 9009059424008926040}
-  _lootCollider: {fileID: 0}
+  ItemSprite: {fileID: 9009059424008926040}
+  LootCollider: {fileID: 0}
 --- !u!58 &4483804159065969883
 CircleCollider2D:
   m_ObjectHideFlags: 0

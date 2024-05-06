@@ -13,14 +13,14 @@ namespace _Game.Scripts
         [Button("Add item demo")]
         public void PickupItem(int id)
         {
-            bool result = InventoryManager.AddItem(Items[id]);
-            Debug.Log("Add item success?: " + result);
+            // bool result = InventoryManager.AddItem(Items[id]);
+            // Debug.Log("Add item success?: " + result);
         }
         [Button("Get item demo")]
         public void GetItem()
         {
-            ItemSO item = InventoryManager.GetSelectingItem();
-            Debug.Log($"Selecting: {item.ItemName}");
+            // ItemSO item = InventoryManager.GetSelectingItem();
+            // Debug.Log($"Selecting: {item.ItemName}");
         }
     }
 }

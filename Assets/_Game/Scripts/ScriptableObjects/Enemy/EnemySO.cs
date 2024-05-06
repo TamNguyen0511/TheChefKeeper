@@ -11,8 +11,11 @@ namespace _Game.Scripts.ScriptableObjects.World_Area.Enemy
 
         public int MaxHP;
 
+        public LayerMask AttackableLayers;
+
         public int AttackDamage;
         public float AttackRange;
+        public float AttackRadius;
         public float AttackSpeed;
 
         public float Acceleration;

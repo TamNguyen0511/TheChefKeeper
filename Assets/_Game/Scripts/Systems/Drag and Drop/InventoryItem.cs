@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game.Scripts.Inventory;
+using _Game.Scripts.Items;
 using _Game.Scripts.ScriptableObjects.Items;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -10,19 +11,18 @@ using UnityEngine.UI;
 
 namespace _Game.Scripts.Systems.Drag_and_Drop
 {
-    public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    /// <summary>
+    /// Item in inventory, can be use (or not) base on item type
+    /// </summary>
+    public class InventoryItem : Item, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public ItemSO Item;
 
-        [Header("Object to spawn")]
-        public ItemObject ItemObjectToSpawn;
-        [Header("UI")]
-        public Image Image;
+        [Header("Object to spawn")] public ItemObject HoldingItem;
+        [Header("UI")] public Image Image;
         public TextMeshProUGUI StackTxt;
-        [Header("Parameter")]
-        public int StackCount = 1;
-        [ReadOnly]
-        public Transform ParentAfterDrag;
+        [Header("Parameter")] public int StackCount = 1;
+        [ReadOnly] public Transform ParentAfterDrag;
 
         #region Unity functions
 
@@ -48,7 +48,6 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
         }
 
 
-
         #region I Drags
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -58,7 +57,6 @@ namespace _Game.Scripts.Systems.Drag_and_Drop
             transform.SetAsLastSibling();
             Image.raycastTarget = false;
         }
-
 
         public void OnDrag(PointerEventData eventData)
         {

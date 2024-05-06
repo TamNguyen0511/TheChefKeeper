@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Game.Scripts.Enums;
+using _Game.Scripts.Interfaces;
 using _Game.Scripts.ScriptableObjects.World_Area.Enemy;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
@@ -9,24 +10,25 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class DefaultEnemyBehaviour : MonoBehaviour
+public class DefaultEnemyBehaviour : MonoBehaviour, IDamageable
 {
-    public readonly string ANIMATOR_IDLE_STATE = "Idle";
     public readonly string ANIMATOR_PATROLLING_STATE = "Patrolling";
     public readonly string ANIMATOR_CHASE_STATE = "Chase";
     public readonly string ANIMATOR_ATTACK_STATE = "Attack";
 
     public EnemySO DefaultEnemyStat;
     public EnemyAI EnemyAI;
-    public EnemyState CurrentState;
-    public Rigidbody2D Rigidbody;
     public SpriteRenderer EnemySprite;
-    public Animator Animator;
 
-    [ShowInInspector, ReadOnly]
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private Transform _attackPoint;
+
     public Vector2 MovementInput { get; set; }
 
-    [SerializeField, ReadOnly] private float currentSpeed;
+    [Title("Debug + checking")] [SerializeField, ReadOnly]
+    private float currentSpeed;
+
     [SerializeField, ReadOnly] private int _currentHP;
 
     [SerializeField] private List<Vector2> _allPatrollingPoints = new();
@@ -35,34 +37,38 @@ public class DefaultEnemyBehaviour : MonoBehaviour
     private float _patrolWaitTime = 2;
 
     [HideInInspector] public Vector2 PatrollingPosition;
-    [ReadOnly] public float CurrentPatrolWaitTime;
+    [HideInInspector] public float CurrentPatrolWaitTime;
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
         _currentHP = DefaultEnemyStat.MaxHP;
         CurrentPatrolWaitTime = _patrolWaitTime;
         PatrollingPosition = _allPatrollingPoints[_patrollingPointCounting];
     }
 
-    protected virtual void FixedUpdate()
+    public virtual void Attack()
     {
-        // ChasePlayer();
-    }
+        Vector2 targetPosition = EnemyAI.AIData.CurrentTarget.position;
+        var attackAngle = Mathf.Atan2(targetPosition.y - transform.position.y, targetPosition.x - transform.position.x);
+        _attackPoint.position = new Vector2(Mathf.Cos(attackAngle), Mathf.Sin(attackAngle));
 
-    protected virtual void Attack()
-    {
-    }
+        Collider2D[] hit = Physics2D.OverlapCircleAll(_attackPoint.position, DefaultEnemyStat.AttackRadius,
+            DefaultEnemyStat.AttackableLayers);
+        if (hit.Length <= 0) return;
 
-    protected virtual void TakeDamage(int damage)
-    {
-        _currentHP -= damage;
-        if (_currentHP <= 0)
-            Dead("dead");
+        foreach (Collider2D hitObject in hit)
+        {
+            if (hitObject.GetComponent<IDamageable>() != null)
+            {
+                hitObject.GetComponent<IDamageable>().TakeHit(DefaultEnemyStat.AttackDamage);
+            }
+        }
     }
 
     protected virtual void Dead(string deadAnimTrigger)
     {
-        Animator.SetTrigger(deadAnimTrigger);
+        _animator.SetTrigger(deadAnimTrigger);
+        gameObject.SetActive(false);
     }
 
     #region Test SMB
@@ -89,8 +95,20 @@ public class DefaultEnemyBehaviour : MonoBehaviour
         }
 
         currentSpeed = Mathf.Clamp(currentSpeed, 0, DefaultEnemyStat.MaxMoveSpeed);
-        Rigidbody.velocity = MovementInput * currentSpeed;
+        _rigidbody.velocity = MovementInput * currentSpeed;
     }
 
     #endregion
+
+    public bool TakeHit(int damage)
+    {
+        _currentHP -= damage;
+        if (_currentHP <= 0)
+        {
+            Dead("dead");
+            return true;
+        }
+
+        return false;
+    }
 }

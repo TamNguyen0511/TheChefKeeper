@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Game.Scripts.Items;
 using _Game.Scripts.ScriptableObjects.Items;
 using _Game.Scripts.Systems.Drag_and_Drop;
 using Sirenix.OdinInspector;
@@ -10,8 +11,7 @@ namespace _Game.Scripts.Inventory
     {
         public static InventoryManager Instance;
         public ItemObject ItemToSpawn;
-        [ShowInInspector, ReadOnly]
-        private int _selectingSlot = -1;
+        [ShowInInspector, ReadOnly] private int _selectingSlot = -1;
 
         public GameObject InventoryItemPrefab;
         public List<InventorySlotUI> InventorySlot = new();
@@ -51,7 +51,7 @@ namespace _Game.Scripts.Inventory
 
         #region Item handle
 
-        public bool AddItem(ItemSO item)
+        public bool AddItem(Item item)
         {
             /// Find empty slot
             for (int i = 0; i < InventorySlot.Count; i++)
@@ -61,7 +61,7 @@ namespace _Game.Scripts.Inventory
 
                 if (itemInSlot == null)
                 {
-                    SpawnNewItem(item, slot);
+                    SpawnNewItem(item.ItemData, slot);
                     return true;
                 }
 
@@ -72,7 +72,7 @@ namespace _Game.Scripts.Inventory
                 {
                     itemInSlot.StackCount++;
                     itemInSlot.RefreshCount();
-                    ;
+
                     return true;
                 }
             }
@@ -87,6 +87,7 @@ namespace _Game.Scripts.Inventory
 
             inventoryItem.InitItem(item);
         }
+
         public void SpawnBackToOutsideEnvironment(ItemSO item)
         {
             ItemObject newSpawnItem = Instantiate(ItemToSpawn);
@@ -95,13 +96,13 @@ namespace _Game.Scripts.Inventory
 
         #endregion
 
-        public ItemSO GetSelectingItem()
+        public InventoryItem GetSelectingItem()
         {
             InventorySlotUI slot = InventorySlot[_selectingSlot];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot != null)
             {
-                return itemInSlot.Item;
+                return itemInSlot;
             }
 
             return null;

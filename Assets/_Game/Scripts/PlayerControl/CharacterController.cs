@@ -1,4 +1,5 @@
 ﻿using _Game.Scripts.Interfaces.InterfaceActors;
+using _Game.Scripts.Inventory;
 using _Game.Scripts.Items;
 using _Game.Scripts.Items.Weapons;
 using _Game.Scripts.ScriptableObjects.World_Area;
@@ -13,18 +14,13 @@ namespace _Game.Scripts.PlayerControl
     [RequireComponent(typeof(PlayerInputHandle))]
     public class CharacterController : Interactor
     {
-        
-        [ShowInInspector, ReadOnly]
-        private PlayerInputHandle _playerInput;
+        [ShowInInspector, ReadOnly] private PlayerInputHandle _playerInput;
 
         #region Flash Light
 
-        [SerializeField]
-        private UnityEngine.Rendering.Universal.Light2D _light2D;
-        [SerializeField]
-        private GameObject _lightHolder;
-        [SerializeField]
-        private float _lightMaxIntensity;
+        [SerializeField] private UnityEngine.Rendering.Universal.Light2D _light2D;
+        [SerializeField] private GameObject _lightHolder;
+        [SerializeField] private float _lightMaxIntensity;
 
         #endregion
 
@@ -41,15 +37,20 @@ namespace _Game.Scripts.PlayerControl
 
         private void Attack()
         {
-            if (SelectingItem != null)
+            SelectingItem = InventoryManager.Instance.GetSelectingItem();
+
+            if (SelectingItem == null)
             {
-                Weapon weapon = SelectingItem as Weapon;
-                if (weapon != null)
-                {
-                    weapon.Attack();
-                }
+                InteractAction();
+                return;
             }
-            else InteractAction();
+
+            Weapon weapon = SelectingItem as Weapon;
+            if (weapon != null)
+            {
+                weapon.Attack();
+            }
+            else SelectingItem.UseItem();
         }
 
         #region Player's flash-light
@@ -76,13 +77,6 @@ namespace _Game.Scripts.PlayerControl
 
             DOTween.To(() => _light2D.intensity, newValue => _light2D.intensity = newValue, _lightMaxIntensity, 0.5f);
             await UniTask.WaitUntil(() => _light2D.intensity >= _lightMaxIntensity);
-        }
-
-        private void LightHeadMousePosition(Vector3 target)
-        {
-            Vector2 lookDirection = target - transform.position;
-            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
-            _lightHolder.transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         }
 
         #endregion

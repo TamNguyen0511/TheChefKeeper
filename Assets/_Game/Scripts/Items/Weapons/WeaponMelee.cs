@@ -1,5 +1,5 @@
 ﻿using System;
-using _Game.Scripts.PlayerControl.Enemies;
+using _Game.Scripts.Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,16 +7,12 @@ namespace _Game.Scripts.Items.Weapons
 {
     public class WeaponMelee : Weapon
     {
-        [SerializeField]
-        private Transform _attackTriggerPoint;
+        [SerializeField] private Transform _attackTriggerPoint;
 
-        [SerializeField]
-        private float _attackRange;
+        [SerializeField] private float _attackRange;
 
-        [SerializeField]
-        private float _timeBetweenAttack;
-        [SerializeField]
-        private float _startTimeBetweenAttack;
+        [SerializeField] private float _timeBetweenAttack;
+        [SerializeField] private float _startTimeBetweenAttack;
 
         private void Update()
         {
@@ -33,8 +29,8 @@ namespace _Game.Scripts.Items.Weapons
                     Physics2D.OverlapCircleAll(_attackTriggerPoint.position, _attackRange, WeaponInfo.DamagableLayer);
                 if (hitteds.Length > 0)
                     foreach (Collider2D hit in hitteds)
-                        if (hit.GetComponent<PlayerControl.Enemies.Enemy>() != null)
-                            hit.GetComponent<PlayerControl.Enemies.Enemy>().TakeDamage(WeaponInfo.Damage);
+                        if (hit.GetComponent<IDamageable>() != null)
+                            hit.GetComponent<IDamageable>().TakeHit(WeaponInfo.Damage);
 
                 _timeBetweenAttack = _startTimeBetweenAttack;
             }
