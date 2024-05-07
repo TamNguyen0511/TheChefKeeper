@@ -29,3 +29,6 @@ From `16/01/2024` - `...`
 Actions:
 - Add initial packages
 - Add game assets (Earth)
+- 07/05/2024: BIG UPDATE
+  - Creating editor in inspector, <span style="color:yellow"> link may change in the future </span>
+    - Weapon Datas: `Tools/Data`
