@@ -27,12 +27,24 @@ namespace _Game.Scripts.ScriptableObjects.Items
          DisableIf("IsStackable", false), EnableIf("IsStackable", true)]
         public int MaxStack = 1;
 
+        [Unit(Units.Kilogram)]
         public float Weight;
 
         private void SetMaxStack()
         {
             if (!IsStackable)
                 MaxStack = 1;
+        }
+        public void CastFromParent(BaseItemSO parent)
+        {
+            ItemIcon = parent.ItemIcon;
+            ItemId = parent.ItemId;
+            ItemType = parent.ItemType;
+            ItemName = parent.ItemName;
+            ItemDescription = parent.ItemDescription;
+            IsStackable = parent.IsStackable;
+            MaxStack = parent.MaxStack;
+            Weight = parent.Weight;
         }
     }
 }

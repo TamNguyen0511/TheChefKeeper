@@ -34,7 +34,7 @@ namespace _Game.Scripts.Inventory
             }
         }
 
-        private void InitItem()
+        public override void InitItem()
         {
             ItemSprite.sprite = BaseItemData.ItemIcon;
         }

@@ -8,6 +8,7 @@ namespace _Game.Scripts.Items
 {
     public abstract class Item : MonoBehaviour
     {
+        [OnValueChanged("InitItem")]
         public BaseItemSO BaseItemData;
         public LayerMask PlayerLayer;
         [ReadOnly] public CircleCollider2D LootCollider;
@@ -19,6 +20,11 @@ namespace _Game.Scripts.Items
 
         public virtual void UseItem()
         {
+        }
+
+        public virtual void InitItem()
+        {
+            
         }
     }
 }
