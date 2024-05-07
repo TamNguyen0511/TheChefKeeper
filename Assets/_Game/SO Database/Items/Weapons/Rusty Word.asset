@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d7b05d008643e1938bad8b8300316e, type: 3}
   m_Name: Rusty Word
   m_EditorClassIdentifier: 
+  ItemIcon: {fileID: -987731457, guid: 4b443ff16920428439b2d6f86fe3d359, type: 3}
   ItemId: ID_Wea_1
+  ItemType: 3
   ItemName: Rusty Sword
   ItemDescription: An old sword, but maybe still usable
-  IsStackable: 1
+  IsStackable: 0
   MaxStack: 1
-  ItemType: 3
   Weight: 0
-  ItemIcon: {fileID: -987731457, guid: 4b443ff16920428439b2d6f86fe3d359, type: 3}
   WeaponType: 2
   DamagableLayer:
     serializedVersion: 2
