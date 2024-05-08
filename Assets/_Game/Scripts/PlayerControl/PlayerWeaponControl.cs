@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Game.Scripts.Enums;
 using _Game.Scripts.Interfaces;
 using _Game.Scripts.ScriptableObjects.Items;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+using Sirenix.OdinInspector;
 
 namespace _Game.Scripts.PlayerControl
 {
     public class PlayerWeaponControl : MonoBehaviour
     {
-        public WeaponSO CurrentUsingWeaponData;
         public List<WeaponDataWithAnimAndAttackPoint> WeaponDatas = new();
-        
+        [ReadOnly]
+        public WeaponSO CurrentUsingWeaponData;
+
         [SerializeField] private Transform _attackTriggerPoint;
 
-        [SerializeField] private float _attackRange;
+        [SerializeField, Range(0f, 5f)] private float _attackRange;
 
         [SerializeField] private float _startTimeBetweenAttack;
 
@@ -28,6 +30,7 @@ namespace _Game.Scripts.PlayerControl
 
         public void Attack()
         {
+            var weaponData = GetCurrentWeaponData();
             switch (CurrentUsingWeaponData.WeaponType)
             {
                 case WeaponType.None:
@@ -42,7 +45,7 @@ namespace _Game.Scripts.PlayerControl
                         return;
                     }
 
-                    // WeaponAnim.SetTrigger(AttackAnimTrigger);
+                    weaponData.WeaponAnim.SetTrigger(weaponData.TriggerAnim);
                     Collider2D[] hitteds =
                         Physics2D.OverlapCircleAll(_attackTriggerPoint.position, _attackRange,
                             CurrentUsingWeaponData.DamagableLayer);
@@ -65,14 +68,21 @@ namespace _Game.Scripts.PlayerControl
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        private WeaponDataWithAnimAndAttackPoint GetCurrentWeaponData()
+        {
+            return WeaponDatas.FirstOrDefault(w => w.Weapon == CurrentUsingWeaponData);
+        }
     }
 
     [System.Serializable]
     public class WeaponDataWithAnimAndAttackPoint
     {
+        [PreviewField(90), HideLabel, HorizontalGroup("Split", 120)]
         public WeaponSO Weapon;
-        public Animator WeaponAnim;
-        public string TriggerAnim = "Attack";
-        public Transform AttackPoint;
+
+        [VerticalGroup("Split/Right")] public Animator WeaponAnim;
+        [VerticalGroup("Split/Right")] public string TriggerAnim = "Attack";
+        [VerticalGroup("Split/Right")] public Transform AttackPoint;
     }
 }
