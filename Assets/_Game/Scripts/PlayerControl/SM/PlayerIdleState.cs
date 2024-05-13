@@ -25,6 +25,12 @@ namespace _Game.Scripts.PlayerControl.SM
 
         public override void ChangeState()
         {
+            if (_runner.AttackPressed)
+            {
+                _runner.SetState(typeof(PlayerAttackState));
+                return;
+            }
+
             if (_runner.Movement.sqrMagnitude != 0)
                 _runner.SetState(typeof(PlayerMove3DState));
         }

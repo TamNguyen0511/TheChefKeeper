@@ -10,6 +10,7 @@ namespace _Game.Scripts.PlayerControl
         public event UnityAction<Vector2> MovementEvent = delegate { };
         public event UnityAction RollEvent = delegate { };
         public event UnityAction RollCancelledEvent = delegate { };
+        public event UnityAction<bool> AttackEvent = delegate { };
         private GameControls _playerActions;
 
         #region Unity functions
@@ -65,6 +66,10 @@ namespace _Game.Scripts.PlayerControl
 
         public void OnAttack(InputAction.CallbackContext context)
         {
+            if (context.performed)
+                AttackEvent?.Invoke(true);
+            else if (context.canceled)
+                AttackEvent?.Invoke(false);
         }
 
         public void OnToggleInventory(InputAction.CallbackContext context)

@@ -29,6 +29,12 @@ namespace _Game.Scripts.PlayerControl.SM
 
         public override void ChangeState()
         {
+            if (_runner.AttackPressed)
+            {
+                _runner.SetState(typeof(PlayerAttackState));
+                return;
+            }
+
             if (_runner.RollPressed)
             {
                 _runner.SetState(typeof(PlayerRollState));

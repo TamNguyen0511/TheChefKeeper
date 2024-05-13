@@ -13,6 +13,9 @@ namespace _Game.Scripts.PlayerControl.SM
 
         public PlayerAnimations Animations { get; private set; }
         public Vector2 Movement { get; private set; }
+        public bool AttackPressed => _attackPressed;
+        private bool _attackPressed;
+        public bool IsFacingRight => _isFacingRight;
         private bool _isFacingRight = true;
 
         public bool RollPressed => _rollPressed;
@@ -31,13 +34,15 @@ namespace _Game.Scripts.PlayerControl.SM
             _playerInput.MovementEvent += HandleMove;
             _playerInput.RollEvent += HandleRoll;
             _playerInput.RollCancelledEvent += HandleCancelledRoll;
+            _playerInput.AttackEvent += HandleAttack;
         }
 
         private void OnDisable()
         {
             _playerInput.MovementEvent -= HandleMove;
             _playerInput.RollEvent -= HandleRoll;
-            _playerInput.RollCancelledEvent += HandleCancelledRoll;
+            _playerInput.RollCancelledEvent -= HandleCancelledRoll;
+            _playerInput.AttackEvent -= HandleAttack;
         }
 
         #endregion
@@ -56,6 +61,11 @@ namespace _Game.Scripts.PlayerControl.SM
         private void HandleCancelledRoll()
         {
             _rollPressed = false;
+        }
+
+        private void HandleAttack(bool isPressed)
+        {
+            _attackPressed = isPressed;
         }
 
         private void CheckFlipSprite(Vector2 velocity)

@@ -31,5 +31,10 @@ namespace _Game.Scripts.PlayerControl
         {
             _animator.CrossFade(PLAYER_ROLL, _transitionDuration);
         }
+
+        public void PlayAttack(string attackName)
+        {
+            _animator.CrossFade(attackName, _transitionDuration);
+        }
     }
 }

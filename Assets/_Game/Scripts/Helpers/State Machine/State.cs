@@ -32,7 +32,7 @@ namespace _Game.Scripts.Helpers.State_Machine
 
     public enum AnimationTriggerType
     {
-        EnemyDamaged,
-        PlayFootstepSound
+        HitBox,
+        FinishAttack,
     }
 }
