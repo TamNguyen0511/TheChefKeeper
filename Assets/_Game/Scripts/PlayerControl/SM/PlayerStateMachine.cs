@@ -8,21 +8,36 @@ namespace _Game.Scripts.PlayerControl.SM
     {
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private Transform _spriteTransform;
-        [SerializeField] private Rigidbody2D _rigidbody;
+        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Animator _animator;
 
+        public PlayerAnimations Animations { get; private set; }
         public Vector2 Movement { get; private set; }
         private bool _isFacingRight = true;
 
+        public bool RollPressed => _rollPressed;
+        private bool _rollPressed;
+
         #region Unity functions
+
+        protected override void Awake()
+        {
+            base.Awake();
+            Animations = new PlayerAnimations(_animator);
+        }
 
         private void OnEnable()
         {
             _playerInput.MovementEvent += HandleMove;
+            _playerInput.RollEvent += HandleRoll;
+            _playerInput.RollCancelledEvent += HandleCancelledRoll;
         }
 
         private void OnDisable()
         {
             _playerInput.MovementEvent -= HandleMove;
+            _playerInput.RollEvent -= HandleRoll;
+            _playerInput.RollCancelledEvent += HandleCancelledRoll;
         }
 
         #endregion
@@ -33,6 +48,16 @@ namespace _Game.Scripts.PlayerControl.SM
             CheckFlipSprite(movement);
         }
 
+        private void HandleRoll()
+        {
+            _rollPressed = true;
+        }
+
+        private void HandleCancelledRoll()
+        {
+            _rollPressed = false;
+        }
+
         private void CheckFlipSprite(Vector2 velocity)
         {
             if ((!(velocity.x > 0f) || _isFacingRight) && (!(velocity.x < 0f) || !_isFacingRight)) return;
@@ -41,7 +66,7 @@ namespace _Game.Scripts.PlayerControl.SM
             _spriteTransform.Rotate(_spriteTransform.rotation.x, 180f, _spriteTransform.rotation.z);
         }
 
-        public void Move(Vector2 velocity)
+        public void Move(Vector3 velocity)
         {
             _rigidbody.velocity = velocity;
         }

@@ -8,6 +8,8 @@ namespace _Game.Scripts.PlayerControl
     public class PlayerInput : MonoBehaviour, GameControls.IPlayerActions
     {
         public event UnityAction<Vector2> MovementEvent = delegate { };
+        public event UnityAction RollEvent = delegate { };
+        public event UnityAction RollCancelledEvent = delegate { };
         private GameControls _playerActions;
 
         #region Unity functions
@@ -51,27 +53,30 @@ namespace _Game.Scripts.PlayerControl
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnAction(InputAction.CallbackContext context)
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnMousePosition(InputAction.CallbackContext context)
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnToggleInventory(InputAction.CallbackContext context)
         {
-            throw new System.NotImplementedException();
+        }
+
+        public void OnRoll(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                RollEvent?.Invoke();
+            if (context.canceled)
+                RollCancelledEvent?.Invoke();
         }
 
         #endregion

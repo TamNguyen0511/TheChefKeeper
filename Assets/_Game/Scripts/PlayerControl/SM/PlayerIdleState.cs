@@ -10,6 +10,7 @@ namespace _Game.Scripts.PlayerControl.SM
         {
             base.Enter(parent);
             _runner.Move(Vector2.zero);
+            parent.Animations.PlayIdle();
         }
 
         #region State base
@@ -24,9 +25,8 @@ namespace _Game.Scripts.PlayerControl.SM
 
         public override void ChangeState()
         {
-            if (_runner.Movement.sqrMagnitude == 0) return;
-
-            _runner.SetState(typeof(PlayerMoveState));
+            if (_runner.Movement.sqrMagnitude != 0)
+                _runner.SetState(typeof(PlayerMove3DState));
         }
 
         #endregion

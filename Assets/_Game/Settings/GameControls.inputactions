@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "GameControls",
     "maps": [
         {
             "name": "Player",
@@ -54,6 +54,15 @@
                     "name": "Toggle Inventory",
                     "type": "Button",
                     "id": "c51f49e3-92b0-43a5-a11d-24c1b9f0ce5f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "cf8a0fd2-ccf9-4210-bcb0-f07409cf0b01",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Toggle Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2cc493d-aa7c-43bb-93e9-d88d87cf9735",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -80,6 +80,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""cf8a0fd2-ccf9-4210-bcb0-f07409cf0b01"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Toggle Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2cc493d-aa7c-43bb-93e9-d88d87cf9735"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -251,6 +271,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_Player_MousePosition = m_Player.FindAction("Mouse Position", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_ToggleInventory = m_Player.FindAction("Toggle Inventory", throwIfNotFound: true);
+        m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         // Gameplay Actions
         m_GameplayActions = asset.FindActionMap("Gameplay Actions", throwIfNotFound: true);
         m_GameplayActions_OpenInventory = m_GameplayActions.FindAction("Open Inventory", throwIfNotFound: true);
@@ -321,6 +342,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_ToggleInventory;
+    private readonly InputAction m_Player_Roll;
     public struct PlayerActions
     {
         private @GameControls m_Wrapper;
@@ -331,6 +353,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
+        public InputAction @Roll => m_Wrapper.m_Player_Roll;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -358,6 +381,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @ToggleInventory.started += instance.OnToggleInventory;
             @ToggleInventory.performed += instance.OnToggleInventory;
             @ToggleInventory.canceled += instance.OnToggleInventory;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -380,6 +406,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @ToggleInventory.started -= instance.OnToggleInventory;
             @ToggleInventory.performed -= instance.OnToggleInventory;
             @ToggleInventory.canceled -= instance.OnToggleInventory;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -460,6 +489,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnToggleInventory(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
     public interface IGameplayActionsActions
     {
