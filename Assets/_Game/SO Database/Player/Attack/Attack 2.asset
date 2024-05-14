@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c06cb7c12774c95bed554443317beeb, type: 3}
-  m_Name: Attack
+  m_Name: Attack 2
   m_EditorClassIdentifier: 
-  AttackName: AttackSwing
+  AttackName: AttackSwing3
   AttackBounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.25, y: 0.35, z: 0.3}
-  BoundsOffset: {x: 1, y: 1, z: 0}
-  Damage: 1
+    m_Extent: {x: 0, y: 0, z: 0}
+  BoundsOffset: {x: 0, y: 0, z: 0}
+  Damage: 0
   TargetLayer:
     serializedVersion: 2
-    m_Bits: 503
-  NextComboIndex: 1
-  ComboAttackTime: 0.5
+    m_Bits: 0
+  NextComboIndex: 0
+  ComboAttackTime: 0.4

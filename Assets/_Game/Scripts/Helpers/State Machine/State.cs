@@ -9,6 +9,7 @@ namespace _Game.Scripts.Helpers.State_Machine
         public virtual void Enter(T parent)
         {
             _runner = parent;
+            Debug.Log(parent.GetType());
         }
 
         // similar to Update

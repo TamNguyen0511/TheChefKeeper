@@ -848,6 +848,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3702aacd2f85049c5bea4956df1f43ba, type: 2}
   - {fileID: 11400000, guid: 4997b8f025caa4550930a9716bbeabcb, type: 2}
   - {fileID: 11400000, guid: 35f985ed87b2c49a89e1fe142eb52fe7, type: 2}
+  - {fileID: 11400000, guid: f7360b08973a449c3867067b52d17cd2, type: 2}
   _debug: 1
   _playerInput: {fileID: 1686542740870114732}
   _spriteTransform: {fileID: 8114523846647411688}

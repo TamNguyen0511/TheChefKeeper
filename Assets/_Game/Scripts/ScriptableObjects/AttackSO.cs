@@ -12,6 +12,8 @@ namespace _Game.Scripts.ScriptableObjects.World_Area
         [Title("Offset of player")] public Vector3 BoundsOffset;
         [Title("Damage")] public int Damage;
         [Title("Damageable layers")] public LayerMask TargetLayer;
+        [HideInInspector] public int NextComboIndex;
+        public float ComboAttackTime;
 
         private Bounds GetBoundsRelativeToPlayer(Transform player, bool isFacingRight)
         {
