@@ -12,8 +12,7 @@ namespace _Game.Scripts.PlayerControl
     public class PlayerWeaponControl : MonoBehaviour
     {
         public List<WeaponDataWithAnimAndAttackPoint> WeaponDatas = new();
-        [ReadOnly]
-        public WeaponSO CurrentUsingWeaponData;
+        [ReadOnly] public WeaponSO CurrentUsingWeaponData;
 
         [SerializeField] private Transform _attackTriggerPoint;
 
@@ -25,6 +24,7 @@ namespace _Game.Scripts.PlayerControl
 
         private void OnEnable()
         {
+            if (CurrentUsingWeaponData == null) return;
             _startTimeBetweenAttack = CurrentUsingWeaponData.AttackSpeed;
         }
 
