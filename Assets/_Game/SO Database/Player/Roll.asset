@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed08e4e450641d186c80d799f1c5659, type: 3}
   m_Name: Roll
   m_EditorClassIdentifier: 
-  _rollSpeed: 50
+  _rollSpeed: 30
   _rollTime: 0.5
   _debug: 1

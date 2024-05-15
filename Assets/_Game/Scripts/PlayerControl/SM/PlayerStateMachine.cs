@@ -1,5 +1,6 @@
 using System;
 using _Game.Scripts.Helpers.State_Machine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Game.Scripts.PlayerControl.SM
@@ -8,7 +9,11 @@ namespace _Game.Scripts.PlayerControl.SM
     {
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private Transform _spriteTransform;
+#if NOT_2D
         [SerializeField] private Rigidbody _rigidbody;
+#else
+        [SerializeField] private Rigidbody2D _rigidbody;
+#endif
         [SerializeField] private Animator _animator;
 
         public PlayerAnimations Animations { get; private set; }
@@ -76,9 +81,24 @@ namespace _Game.Scripts.PlayerControl.SM
             _spriteTransform.Rotate(_spriteTransform.rotation.x, 180f, _spriteTransform.rotation.z);
         }
 
+#if NOT_2D
         public void Move(Vector3 velocity)
+#else
+        public void Move(Vector2 velocity)
+#endif
         {
             _rigidbody.velocity = velocity;
+        }
+
+        private void SetupFor2dAnd3d()
+        {
+#if NOT_2D
+            // _rigidbody = inst
+#else
+            _rigidbody = transform.AddComponent<Rigidbody2D>();
+            _rigidbody.gravityScale = 0;
+            _rigidbody.freezeRotation = true;
+#endif
         }
     }
 }
